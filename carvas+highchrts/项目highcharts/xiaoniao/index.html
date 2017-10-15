@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		img{
+			display: none;
+		}
+		body{
+			text-align: center;
+		}
+		canvas{
+			border:1px solid #ccc;
+		}
+	</style>
+</head>
+<body>
+	<img src="images/land.png" id = "land" alt="">
+	<img src="images/bird0_0.png" id="bird0_0" alt="">
+	<img src="images/bird0_1.png" id="bird0_1" alt="">
+	<img src="images/bird0_2.png" id="bird0_2" alt="">
+	<img src="images/bg_day.png" id = "bg_day" alt="">
+	<img src="images/pipe_down.png" id="pipe_down" alt="">
+	<img src="images/pipe_up.png" id="pipe_up" alt="">
+	<canvas width = "360" height="512" id="my_canvas"></canvas>
+	<!-- 引包 -->
+	<script type="text/javascript" src="js/Game.js"></script>
+	<script type="text/javascript" src="js/Pipe.js"></script>
+	<script type="text/javascript" src="js/Bird.js"></script>
+	<script type="text/javascript" src="js/Background.js"></script>
+	<script type="text/javascript">
+		window.onload =function(){
+			// 经过分析。采用面向对象的方式去写代码。
+			/* 一 ： Game 中介者 
+	           继续分析：Game是中介者。所以所有的其它元素都是该对象的属性。所以构造函数中就要写好。
+			   二 ： Background 背景 有两个实例 一个是地面 一个是后面的飘动的云那个图片
+			       继续分析  背景有什么属性。 将它们抽象成一个构造函数 结果发现。在这个游戏中。背景是图片。都在移动。所以也有速度
+			*/
+			// 得到图片
+			var land_pic = $("land");
+			var bg_pic = $("bg_day");
+			var pipe_up = $("pipe_up");
+			var pipe_down =$("pipe_down");
+			var bird_arr = [$("bird0_0"),$("bird0_1"),$("bird0_2")];
+	    // 得到刷子
+	    var ctx = $("my_canvas").getContext("2d");
+	    // 地面
+	    var land = new Background(land_pic,2);
+	    // 背景
+	    var bg = new Background(bg_pic,1);
+			// 管子
+			var pipe = new Pipe(pipe_down,pipe_up,2);
+			// 鸟
+			var bird = new Bird(bird_arr);
+	    var g = new Game(ctx,land,bg,pipe,bird);
+	    // 定义一个函数 用来节省代码
+	    function $(id){
+	     return document.getElementById(id);
+	    }
+		}
+	</script>
+</body>
+</html>

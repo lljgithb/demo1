@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		img{
+			display: none;
+		}
+		body{
+			text-align: center;
+		}
+		canvas{
+			border:1px solid #ccc;
+			background: url(img/bj.png);
+		}
+	</style>
+</head>
+<body>
+	<audio src="sound/bgsound.ogg" id = "audio"></audio>
+	<canvas width="240" height="320" id="my_canvas"></canvas>
+	<img src="img/bj.png" alt="">
+	<img src="img/cd.png" alt="">
+	<img src="img/chuizi.png" alt="">
+	<img src="img/cw.png" alt="">
+	<img src="img/cwk.png" alt="">
+	<img src="img/dishu.png" alt="">
+	<img src="img/dishu_2.png" alt="">
+	<img src="img/life.png" alt="">
+	<img src="img/life1.png" alt="">
+	<img src="img/logo.png" alt="">
+	<img src="img/num_1.png" alt="">
+	<img src="img/num_2.png" alt="">
+	<img src="img/tuzi.png" alt="">
+	<img src="img/ui.png" alt="">
+	<script type="text/javascript" src="js/Game.js">
+	</script>
+	<script type="text/javascript" src="js/Animal.js"></script>
+	<script> 
+	  window.onload = function(){
+	  	// 定义函数减少代码
+		  function $(id){
+		  	return document.getElementById(id);
+		  }
+		  var imgs = document.querySelectorAll("img");
+		  // 循环给所有的img图片加id
+		  for(var i = 0;i<imgs.length;i++){
+		  	imgs[i].src.replace(/\/(\w+)\.png$/,function(match,$1){
+		  		imgs[i].id = $1;
+		  	})	
+		  }
+	  	// 刷子
+		  var ctx = $("my_canvas").getContext("2d");
+		  // 背景图片
+		  var bj = $("bj");
+		  // ui
+		  var ui = $("ui");
+		  // logo图片
+		  var logo = $("logo");
+		  // 分数图片
+		  var score_img = $("num_2");
+		  // 生命值
+		  var life  = $("life");
+		  // 生命值乘号
+		  var life1 = $("life1");
+		  // 数字图片 金黄色
+		  var life_num = $("num_1")
+		  // 动物类  传递一个图片数组 里面是三种动物的图片
+		  var animal  = new Animal([$("dishu"),$("dishu_2"),$("tuzi")]);
+		  // 锤子图片
+		  var hammer = $("chuizi");
+		  // 重玩图片
+		  var cw = $("cw");
+		  // 重玩框图片
+		  var cwk = $("cwk");
+		  // audio元素
+		  var audio = $("audio");
+		  // 将所有的元素传递到构造函数中作为属性。
+		  var g = new Game(ctx,bj,logo,ui,animal,hammer,life,life1,life_num,score_img,cw,cwk,audio);
+		  // 渲染logo
+		  g.rendLogo();
+		  // 渲染开始游戏文字
+		  g.rendStartText();
+		  // 绑定事件
+		  g.bindEvent();
+	  }
+	</script>
+</body>
+</html>

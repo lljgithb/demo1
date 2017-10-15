@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+</head>
+<style type="text/css">
+.container {
+	width: 800px;
+	height: 500px;
+	margin: 50px auto;
+}
+</style>
+<body>
+	<!-- 定义容器 -->
+	<div class="container"></div>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="highcharts.js"></script>
+<script type="text/javascript">
+// 定义一个图表
+$('.container')
+	.highcharts({
+		// 定义全局配置
+		chart: {
+			type: 'spline',
+			// 定义事件
+			events: {
+				'load': function () {
+					// console.log(this, arguments)
+					// 访问数据列
+					var series = this.series[0];
+					// console.log(series)
+					// 股票是在固定时间添加一个点
+					setInterval(function () {
+						// 添加一个点
+						series.addPoint(parseInt(Math.random() * 100), true, true)
+					}, 500)
+					
+				}
+			}
+		},
+		// 定义数据列
+		series: [
+			{
+				// 随机10个数，0-100之间的整数
+				data: (function () {
+					// 定义数组
+					var arr = [];
+					// 包含10个整数
+					for (var i = 0; i < 100; i++) {
+						// 添加0-100之间的整数
+						arr.push(parseInt(Math.random() * 100))
+					}
+					// 函数的返回值就是数据列数组
+					return arr;
+				})()
+			}
+		]
+	})
+</script>
+</body>
+</html>
